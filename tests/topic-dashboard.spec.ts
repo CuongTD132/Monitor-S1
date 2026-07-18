@@ -40,6 +40,15 @@ function buildTelegramCaption(topic: TopicSummary, issues: DashboardIssue[]): st
   ].join('\n');
 }
 
+function buildStableTelegramCaption(topic: TopicSummary): string {
+  return [
+    'Xác nhận hệ thống Trendyze đang hoạt động ổn định',
+    `Topic #${topic.id} - ${topic.title}`,
+    'Đã đăng nhập thành công và kiểm tra toàn bộ tab theo thứ tự ngược từ Competitor Comparison đến Discussion Overview.',
+    'Không phát hiện dashboard toàn số 0, lỗi tải reaction/sentiment hoặc API HTTP 4xx/5xx.',
+  ].join('\n');
+}
+
 test('kiểm tra dashboard topic In progress', async ({ page }, testInfo) => {
   const diagnostics = trackPageDiagnostics(page);
 
@@ -59,7 +68,15 @@ test('kiểm tra dashboard topic In progress', async ({ page }, testInfo) => {
     issues.push({ tab: 'Console', reason: diagnostics.consoleErrors.join(' | ') });
   }
 
-  if (issues.length === 0) return;
+  if (issues.length === 0) {
+    const overviewTab = page.getByRole('tab', { name: 'Discussion Overview', exact: true });
+    await overviewTab.click();
+    await page.waitForTimeout(2_000);
+    const screenshotPath = testInfo.outputPath(`topic-${topic.id}-discussion-overview-stable.png`);
+    await page.screenshot({ path: screenshotPath, fullPage: true });
+    await sendTelegramPhoto(buildStableTelegramCaption(topic), screenshotPath);
+    return;
+  }
 
   const screenshotPath = testInfo.outputPath(`topic-${topic.id}-dashboard.png`);
   await page.screenshot({ path: screenshotPath, fullPage: true });

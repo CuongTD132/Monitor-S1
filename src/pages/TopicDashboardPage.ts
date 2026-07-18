@@ -12,6 +12,8 @@ export const DASHBOARD_TABS = [
   'Competitor Comparison',
 ] as const;
 
+export const REVERSE_DASHBOARD_TABS: readonly string[] = [...DASHBOARD_TABS].reverse();
+
 export type DashboardIssue = { tab: string; reason: string };
 
 const UNABLE_TO_LOAD_MESSAGE_PATTERN = /unable to load (?:reaction|sentiment) data/i;
@@ -29,10 +31,10 @@ const PANEL_STABILITY_INTERVAL_MS = 200;
 export class TopicDashboardPage {
   constructor(private readonly page: Page) {}
 
-  async inspectAllTabs(): Promise<DashboardIssue[]> {
+  async inspectAllTabs(tabOrder: readonly string[] = REVERSE_DASHBOARD_TABS): Promise<DashboardIssue[]> {
     const issues: DashboardIssue[] = [];
 
-    for (const tabName of DASHBOARD_TABS) {
+    for (const tabName of tabOrder) {
       const tab = this.page.getByRole('tab', { name: tabName, exact: true });
       await expect(tab).toBeVisible();
       await tab.click();
