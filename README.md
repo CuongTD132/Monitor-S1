@@ -6,7 +6,8 @@ Bộ kiểm thử Playwright TypeScript dùng mô hình Page Object Model (POM) 
 - Tự đăng nhập lại nếu session hết hạn và bị chuyển về trang `/login`.
 - Chọn Topic đầu tiên có trạng thái `In progress`.
 - Kiểm tra toàn bộ tab dashboard.
-- Phát hiện dashboard toàn số `0`, thông báo không tải được dữ liệu, API `4xx/5xx` và lỗi console.
+- Phát hiện dashboard toàn số `0`, thông báo không tải được dữ liệu và API `4xx/5xx`.
+- Ghi nhận lỗi console làm ngữ cảnh khi đã có lỗi dashboard/API, nhưng không tự đánh fail chỉ vì console error.
 - Bỏ qua riêng cảnh báo Vuetify về `pagination` đã bị loại bỏ.
 - Chụp màn hình và gửi thông báo lỗi bằng tiếng Việt qua Telegram.
 
@@ -182,4 +183,3 @@ tests/
 playwright.config.ts
 .github/workflows/monitor.yml
 ```
-

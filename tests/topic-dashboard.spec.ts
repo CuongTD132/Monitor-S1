@@ -53,7 +53,9 @@ test('kiểm tra dashboard topic In progress', async ({ page }, testInfo) => {
   if (diagnostics.apiFailures.length) {
     issues.push({ tab: 'API', reason: `API trả về lỗi: ${diagnostics.apiFailures.join(' | ')}` });
   }
-  if (diagnostics.consoleErrors.length) {
+  // Console error không thuộc điều kiện cảnh báo chính. Chỉ đính kèm làm
+  // ngữ cảnh khi đã có lỗi dashboard/API cần báo Telegram.
+  if (issues.length > 0 && diagnostics.consoleErrors.length) {
     issues.push({ tab: 'Console', reason: diagnostics.consoleErrors.join(' | ') });
   }
 
