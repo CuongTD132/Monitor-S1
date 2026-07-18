@@ -39,7 +39,7 @@ function buildTelegramCaption(topic: TopicSummary, issues: DashboardIssue[]): st
   ].join('\n');
 }
 
-function buildStableTelegramCaption(topic: TopicSummary): string {
+function buildStableTelegramCaption(): string {
   return [
     'Xác nhận hệ thống Trendyze đang hoạt động ổn định',
   ].join('\n');
@@ -71,7 +71,7 @@ test('kiểm tra dashboard topic In progress', async ({ page }, testInfo) => {
     await page.waitForTimeout(2_000);
     const screenshotPath = testInfo.outputPath(`topic-${topic.id}-discussion-overview-stable.png`);
     await page.screenshot({ path: screenshotPath, fullPage: true });
-    await sendTelegramPhoto(buildStableTelegramCaption(topic), screenshotPath);
+    await sendTelegramPhoto(buildStableTelegramCaption(), screenshotPath);
     return;
   }
 

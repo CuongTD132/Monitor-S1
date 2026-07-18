@@ -10,8 +10,8 @@ export default defineConfig({
   use: {
     baseURL: env.baseUrl,
     headless: !env.isHeaded,
-    viewport: null,
-    // Local runs mở cửa sổ Chromium thật, full màn hình. CI luôn chạy headless.
+    viewport: env.isHeaded ? null : { width: 1920, height: 1080 },
+    // Local mở Chromium full-screen; CI headless mô phỏng màn hình desktop 1920x1080.
     launchOptions: { args: ['--start-maximized', ...(env.isHeaded ? ['--start-fullscreen'] : [])] },
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
@@ -20,7 +20,7 @@ export default defineConfig({
     { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
-      use: { browserName: 'chromium', viewport: null, storageState: AUTH_STATE_PATH },
+      use: { browserName: 'chromium', storageState: AUTH_STATE_PATH },
       dependencies: ['setup'],
     },
   ],
