@@ -34,7 +34,6 @@ function buildTelegramCaption(topic: TopicSummary, issues: DashboardIssue[]): st
   return [
     'Kết quả kiểm thử Trendyze',
     `Topic #${topic.id} - ${topic.title}`,
-    'Đã đăng nhập và kiểm tra toàn bộ tab.',
     'Lỗi phát hiện:',
     details,
   ].join('\n');
@@ -43,9 +42,6 @@ function buildTelegramCaption(topic: TopicSummary, issues: DashboardIssue[]): st
 function buildStableTelegramCaption(topic: TopicSummary): string {
   return [
     'Xác nhận hệ thống Trendyze đang hoạt động ổn định',
-    `Topic #${topic.id} - ${topic.title}`,
-    'Đã đăng nhập thành công và kiểm tra toàn bộ tab theo thứ tự ngược từ Competitor Comparison đến Discussion Overview.',
-    'Không phát hiện dashboard toàn số 0, lỗi tải reaction/sentiment hoặc API HTTP 4xx/5xx.',
   ].join('\n');
 }
 
