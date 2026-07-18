@@ -53,6 +53,7 @@ test('kiểm tra dashboard topic In progress', async ({ page }, testInfo) => {
   const topic = await topicsPage.openFirstInProgressTopic();
 
   const dashboardPage = new TopicDashboardPage(page);
+  await dashboardPage.closeFilterResults();
   const issues = await dashboardPage.inspectAllTabs();
 
   if (diagnostics.apiFailures.length) {

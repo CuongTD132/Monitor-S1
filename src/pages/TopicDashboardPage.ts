@@ -31,6 +31,13 @@ const PANEL_STABILITY_INTERVAL_MS = 200;
 export class TopicDashboardPage {
   constructor(private readonly page: Page) {}
 
+  async closeFilterResults(): Promise<void> {
+    const closeButton = this.page.locator('button.filter-section-close');
+    await expect(closeButton).toBeVisible();
+    await closeButton.click();
+    await expect(closeButton).toBeHidden();
+  }
+
   async inspectAllTabs(tabOrder: readonly string[] = REVERSE_DASHBOARD_TABS): Promise<DashboardIssue[]> {
     const issues: DashboardIssue[] = [];
 
