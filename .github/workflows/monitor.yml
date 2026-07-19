@@ -2,10 +2,7 @@ name: Trendyze dashboard monitor
 
 on:
   workflow_dispatch:
-  schedule:
-    # Kích hoạt trước 2 phút cho các mốc 08:00, 10:00, ..., 22:00 giờ Việt Nam.
-    - cron: '58 7,9,11,13,15,17,19,21 * * *'
-      timezone: 'Asia/Ho_Chi_Minh'
+
 
 jobs:
   monitor:
