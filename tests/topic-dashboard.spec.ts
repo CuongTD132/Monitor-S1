@@ -41,7 +41,7 @@ function buildTelegramCaption(topic: TopicSummary, issues: DashboardIssue[]): st
 
 function buildStableTelegramCaption(): string {
   return [
-    'Xác nhận hệ thống Trendyze đang hoạt động ổn định',
+    '@Cálvin Xác nhận hệ thống Trendyze đang hoạt động ổn định',
   ].join('\n');
 }
 
