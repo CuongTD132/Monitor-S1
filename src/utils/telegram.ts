@@ -20,6 +20,8 @@ export async function sendTelegramPhoto(caption: string, filePath: string): Prom
   });
 
   if (!response.ok) {
-    throw new Error(`Gửi ảnh Telegram thất bại: HTTP ${response.status}`);
+    const payload = (await response.json().catch(() => null)) as { description?: string } | null;
+    const description = payload?.description ? ` - ${payload.description}` : '';
+    throw new Error(`Gửi ảnh Telegram thất bại: HTTP ${response.status}${description}`);
   }
 }

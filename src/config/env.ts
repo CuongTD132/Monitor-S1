@@ -32,7 +32,9 @@ loadDotEnv();
 export function requireEnv(name: string): string {
   const value = process.env[name];
   if (!value) throw new Error(`Thiếu biến môi trường bắt buộc: ${name}`);
-  return value;
+  return value
+    .trim()
+    .replace(/^(['"])(.*)\1$/, '$2');
 }
 
 /** Các biến môi trường không bắt buộc, dùng trực tiếp trong cấu hình Playwright. */
